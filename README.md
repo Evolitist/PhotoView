@@ -1,32 +1,27 @@
 # PhotoView
 PhotoView aims to help produce an easily usable implementation of a zooming Android ImageView.
 
-[![](https://jitpack.io/v/chrisbanes/PhotoView.svg)](https://jitpack.io/#chrisbanes/PhotoView)
+[![](https://jitpack.io/v/Evolitist/PhotoView.svg)](https://jitpack.io/#Evolitist/PhotoView)
 
 [![](https://user-images.githubusercontent.com/12352397/85141529-94648e80-b24f-11ea-9a14-a845fb43b181.gif)
 
 ## Dependency
 
-Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
+Add this in your root `settings.gradle.kts` file:
 
 ```gradle
-allprojects {
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven { url "https://www.jitpack.io" }
+        maven(url = "https://jitpack.io")
     }
-}
-
-buildscript {
-    repositories {
-        maven { url "https://www.jitpack.io" }
-    }	
 }
 ```
 
-Then, add the library to your module `build.gradle`
+Then, add the library to your module `build.gradle.kts`
 ```gradle
 dependencies {
-    implementation 'com.github.chrisbanes:PhotoView:latest.release.here'
+    implementation("com.github.evolitist:PhotoView:latest.release.here")
 }
 ```
 
@@ -38,40 +33,18 @@ dependencies {
 - Allows the application to be notified when the user taps on the Photo.
 
 ## Usage
-There is a [sample](https://github.com/chrisbanes/PhotoView/tree/master/sample) provided which shows how to use the library in a more advanced way, but for completeness, here is all that is required to get PhotoView working:
+There is a [sample](https://github.com/Evolitist/PhotoView/tree/master/sample) provided which shows how to use the library in a more advanced way, but for completeness, here is all that is required to get PhotoView working:
 ```xml
 <com.github.chrisbanes.photoview.PhotoView
-    android:id="@+id/photo_view"
+    android:id="@+id/photoView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 ```
-```java
-PhotoView photoView = (PhotoView) findViewById(R.id.photo_view);
-photoView.setImageResource(R.drawable.image);
+```kotlin
+val photoView = findViewById<PhotoView>(R.id.photoView)
+photoView.setImageResource(R.drawable.image)
 ```
 That's it!
-
-## Issues With ViewGroups
-There are some ViewGroups (ones that utilize onInterceptTouchEvent) that throw exceptions when a PhotoView is placed within them, most notably [ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html) and [DrawerLayout](https://developer.android.com/reference/android/support/v4/widget/DrawerLayout.html). This is a framework issue that has not been resolved. In order to prevent this exception (which typically occurs when you zoom out), take a look at [HackyDrawerLayout](https://github.com/chrisbanes/PhotoView/blob/master/sample/src/main/java/com/github/chrisbanes/photoview/sample/HackyDrawerLayout.java) and you can see the solution is to simply catch the exception. Any ViewGroup which uses onInterceptTouchEvent will also need to be extended and exceptions caught. Use the [HackyDrawerLayout](https://github.com/chrisbanes/PhotoView/blob/master/sample/src/main/java/com/github/chrisbanes/photoview/sample/HackyDrawerLayout.java) as a template of how to do so. The basic implementation is:
-```java
-public class HackyProblematicViewGroup extends ProblematicViewGroup {
-
-    public HackyProblematicViewGroup(Context context) {
-        super(context);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        try {
-            return super.onInterceptTouchEvent(ev);
-        } catch (IllegalArgumentException e) {
-						//uncomment if you really want to see these errors
-            //e.printStackTrace();
-            return false;
-        }
-    }
-}
-```
 
 ## Usage with Fresco
 Due to the complex nature of Fresco, this library does not currently support Fresco. See [this project](https://github.com/ongakuer/PhotoDraweeView) as an alternative solution.
@@ -82,6 +55,7 @@ This library aims to keep the zooming implementation simple. If you are looking 
 License
 --------
 
+    Copyright 2024 Evolitist
     Copyright 2018 Chris Banes
 
     Licensed under the Apache License, Version 2.0 (the "License");

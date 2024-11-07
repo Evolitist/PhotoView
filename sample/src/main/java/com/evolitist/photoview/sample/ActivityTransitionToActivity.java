@@ -1,4 +1,4 @@
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
 import android.os.Bundle;
 

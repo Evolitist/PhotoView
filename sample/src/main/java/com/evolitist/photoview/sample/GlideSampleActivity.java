@@ -1,13 +1,12 @@
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
 import android.os.Bundle;
-
-import com.github.chrisbanes.photoview.PhotoView;
-import com.squareup.picasso.Picasso;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PicassoSampleActivity extends AppCompatActivity {
+import com.bumptech.glide.Glide;
+import com.evolitist.photoview.PhotoView;
+
+public class GlideSampleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +15,7 @@ public class PicassoSampleActivity extends AppCompatActivity {
 
         final PhotoView photoView = findViewById(R.id.iv_photo);
 
-        Picasso.with(this)
+        Glide.with(this)
                 .load("https://images.unsplash.com/photo-1577643816920-65b43ba99fba?ixlib=rb-1.2.1&auto=format&fit=crop&w=3300&q=80")
                 .into(photoView);
     }

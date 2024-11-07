@@ -1,9 +1,10 @@
-package com.github.chrisbanes.photoview.sample
+package com.evolitist.photoview.sample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import coil.api.load
-import com.github.chrisbanes.photoview.PhotoView
+import coil3.load
+import coil3.request.crossfade
+import com.evolitist.photoview.PhotoView
 
 class CoilSampleActivity : AppCompatActivity() {
 

@@ -28,7 +28,7 @@
 
         <activity android:name=".RotationSampleActivity" />
 
-        <activity android:name=".PicassoSampleActivity" />
+        <activity android:name=".GlideSampleActivity" />
 
         <activity android:name=".CoilSampleActivity" />
 

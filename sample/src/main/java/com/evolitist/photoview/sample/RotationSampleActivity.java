@@ -13,16 +13,15 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
-
-import com.github.chrisbanes.photoview.PhotoView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.evolitist.photoview.PhotoView;
 
 public class RotationSampleActivity extends AppCompatActivity {
 
@@ -85,12 +84,9 @@ public class RotationSampleActivity extends AppCompatActivity {
     }
 
     private void rotateLoop() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                photo.setRotationBy(1);
-                rotateLoop();
-            }
+        handler.postDelayed(() -> {
+            photo.setRotationBy(1);
+            rotateLoop();
         }, 15);
     }
 }

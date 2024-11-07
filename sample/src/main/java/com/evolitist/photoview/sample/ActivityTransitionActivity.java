@@ -13,13 +13,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
@@ -45,13 +43,9 @@ public class ActivityTransitionActivity extends AppCompatActivity {
     }
 
     private void transition(View view) {
-        if (Build.VERSION.SDK_INT < 21) {
-            Toast.makeText(ActivityTransitionActivity.this, "21+ only, keep out", Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(ActivityTransitionActivity.this, ActivityTransitionToActivity.class);
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(ActivityTransitionActivity.this, view, getString(R.string.transition_test));
-            startActivity(intent, options.toBundle());
-        }
+        Intent intent = new Intent(ActivityTransitionActivity.this, ActivityTransitionToActivity.class);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(ActivityTransitionActivity.this, view, getString(R.string.transition_test));
+        startActivity(intent, options.toBundle());
     }
 }

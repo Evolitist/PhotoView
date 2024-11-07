@@ -13,19 +13,20 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
 import android.os.Bundle;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 
-import com.github.chrisbanes.photoview.PhotoView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.bumptech.glide.Glide;
+import com.evolitist.photoview.PhotoView;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
@@ -33,38 +34,42 @@ public class ViewPagerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new SamplePagerAdapter());
     }
 
-    static class SamplePagerAdapter extends PagerAdapter {
+    static class SamplePagerAdapter extends RecyclerView.Adapter<SamplePageViewHolder> {
 
         private static final int[] sDrawables = {R.drawable.wallpaper, R.drawable.wallpaper, R.drawable.wallpaper,
             R.drawable.wallpaper, R.drawable.wallpaper, R.drawable.wallpaper};
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             return sDrawables.length;
         }
 
+        @NonNull
         @Override
-        public View instantiateItem(ViewGroup container, int position) {
-            PhotoView photoView = new PhotoView(container.getContext());
-            photoView.setImageResource(sDrawables[position]);
-            // Now just add PhotoView to ViewPager and return it
-            container.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            return photoView;
+        public SamplePageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new SamplePageViewHolder(new PhotoView(parent.getContext()));
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
+        public void onBindViewHolder(@NonNull SamplePageViewHolder holder, int position) {
+            holder.bind(sDrawables[position]);
+        }
+    }
+
+    static class SamplePageViewHolder extends RecyclerView.ViewHolder {
+
+        public SamplePageViewHolder(@NonNull View itemView) {
+            super(itemView);
         }
 
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
+        public void bind(int imageId) {
+            Glide.with(itemView.getContext())
+                    .load(imageId)
+                    .into(((PhotoView) itemView));
         }
-
     }
 }

@@ -7,10 +7,10 @@ plugins {
 
 android {
     compileSdk = 35
-    namespace = "uk.co.senab.photoview.sample"
+    namespace = "com.evolitist.photoview.sample"
 
     defaultConfig {
-        applicationId = "uk.co.senab.photoview.sample"
+        applicationId = "com.evolitist.photoview.sample"
         minSdk = 21
         targetSdk = 35
         versionCode = 100

@@ -1,5 +1,8 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.lib)
+    alias(libs.plugins.kotlin.android)
     id("maven-publish")
 }
 
@@ -9,6 +12,14 @@ android {
 
     defaultConfig {
         minSdk = 21
+    }
+}
+
+kotlin {
+    explicitApi()
+    jvmToolchain(17)
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 

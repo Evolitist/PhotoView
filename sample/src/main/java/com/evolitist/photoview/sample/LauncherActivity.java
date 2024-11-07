@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -59,7 +59,7 @@ public class LauncherActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(v -> {
                 Class clazz;
 
-                switch (holder.getAdapterPosition()) {
+                switch (holder.getBindingAdapterPosition()) {
                     default:
                     case 0:
                         clazz = SimpleSampleActivity.class;
@@ -71,7 +71,7 @@ public class LauncherActivity extends AppCompatActivity {
                         clazz = RotationSampleActivity.class;
                         break;
                     case 3:
-                        clazz = PicassoSampleActivity.class;
+                        clazz = GlideSampleActivity.class;
                         break;
                     case 4:
                         clazz = CoilSampleActivity.class;

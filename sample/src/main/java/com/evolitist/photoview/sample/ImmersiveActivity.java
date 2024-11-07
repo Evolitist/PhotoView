@@ -1,14 +1,13 @@
-package com.github.chrisbanes.photoview.sample;
+package com.evolitist.photoview.sample;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
-import com.github.chrisbanes.photoview.PhotoView;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.evolitist.photoview.OnPhotoTapListener;
+import com.evolitist.photoview.PhotoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +25,7 @@ public class ImmersiveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_immersive);
 
         PhotoView photoView = findViewById(R.id.photo_view);
-        Picasso.with(this)
+        Glide.with(this)
                 .load("http://pbs.twimg.com/media/Bist9mvIYAAeAyQ.jpg")
                 .into(photoView);
         photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
@@ -55,14 +54,10 @@ public class ImmersiveActivity extends AppCompatActivity {
         }
 
         // Navigation bar hiding:  Backwards compatible to ICS.
-        if (Build.VERSION.SDK_INT >= 14) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        }
+        newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
 
         // Status bar hiding: Backwards compatible to Jellybean
-        if (Build.VERSION.SDK_INT >= 16) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        }
+        newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
 
         // Immersive mode: Backward compatible to KitKat.
         // Note that this flag doesn't do anything by itself, it only augments the behavior
@@ -72,9 +67,7 @@ public class ImmersiveActivity extends AppCompatActivity {
         // Sticky immersive mode differs in that it makes the navigation and status bars
         // semi-transparent, and the UI flag does not get cleared when the user interacts with
         // the screen.
-        if (Build.VERSION.SDK_INT >= 18) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        }
+        newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
         //END_INCLUDE (set_ui_flags)

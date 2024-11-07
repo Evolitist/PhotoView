@@ -13,80 +13,81 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.evolitist.photoview.sample;
+package com.evolitist.photoview.sample
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.MenuItem;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.evolitist.photoview.PhotoView
 
-import com.evolitist.photoview.PhotoView;
+class RotationSampleActivity : AppCompatActivity() {
 
-public class RotationSampleActivity extends AppCompatActivity {
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var photo: PhotoView
+    private var rotating = false
 
-    private PhotoView photo;
-    private final Handler handler = new Handler();
-    private boolean rotating = false;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rotation_sample);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.rotation);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_rotate_10_right:
-                        photo.setRotationBy(10);
-                        return true;
-                    case R.id.action_rotate_10_left:
-                        photo.setRotationBy(-10);
-                        return true;
-                    case R.id.action_toggle_automatic_rotation:
-                        toggleRotation();
-                        return true;
-                    case R.id.action_reset_to_0:
-                        photo.setRotationTo(0);
-                        return true;
-                    case R.id.action_reset_to_90:
-                        photo.setRotationTo(90);
-                        return true;
-                    case R.id.action_reset_to_180:
-                        photo.setRotationTo(180);
-                        return true;
-                    case R.id.action_reset_to_270:
-                        photo.setRotationTo(270);
-                        return true;
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_rotation_sample)
+        photo = findViewById(R.id.iv_photo)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.rotation)
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_rotate_10_right -> {
+                    photo.setRotationBy(10f)
+                    true
                 }
-                return false;
+                R.id.action_rotate_10_left -> {
+                    photo.setRotationBy(-10f)
+                    true
+                }
+                R.id.action_toggle_automatic_rotation -> {
+                    toggleRotation()
+                    true
+                }
+                R.id.action_reset_to_0 -> {
+                    photo.setRotationTo(0f)
+                    true
+                }
+                R.id.action_reset_to_90 -> {
+                    photo.setRotationTo(90f)
+                    true
+                }
+                R.id.action_reset_to_180 -> {
+                    photo.setRotationTo(180f)
+                    true
+                }
+                R.id.action_reset_to_270 -> {
+                    photo.setRotationTo(270f)
+                    true
+                }
+                else -> false
             }
-        });
-        photo = findViewById(R.id.iv_photo);
-        photo.setImageResource(R.drawable.wallpaper);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        handler.removeCallbacksAndMessages(null);
-    }
-
-    private void toggleRotation() {
-        if (rotating) {
-            handler.removeCallbacksAndMessages(null);
-        } else {
-            rotateLoop();
         }
-        rotating = !rotating;
+        photo.setImageResource(R.drawable.wallpaper)
     }
 
-    private void rotateLoop() {
-        handler.postDelayed(() -> {
-            photo.setRotationBy(1);
-            rotateLoop();
-        }, 15);
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    private fun toggleRotation() {
+        if (rotating) {
+            handler.removeCallbacksAndMessages(null)
+        } else {
+            rotateLoop()
+        }
+        rotating = !rotating
+    }
+
+    private fun rotateLoop() {
+        handler.postDelayed({
+            photo.setRotationBy(1f)
+            rotateLoop()
+        }, 15)
     }
 }
